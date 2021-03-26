@@ -30,15 +30,19 @@ function howManyMovies(listMovies){
   }
 
 // Iteration 3: All rates average - Get the average of all rates with 2 decimals
-let rates = movies.map(x => (x.rate));
-let rateSum = rates.reduce(function(acc, value) {
-  return acc + value
-}, 0);
+
+
 
 function ratesAverage(movieList){
-    let averageRate = rateSum / movieList.length
-    return averageRate.toFixed(2)  
-}  
+    if (movieList.length === 0) {
+        return 0;
+      }
+      let rates = movieList.map(x => (x.rate));
+      let rateSum = rates.reduce(function(acc, value) {
+        return acc + value
+      }, 0);
+      return parseFloat((rateSum / movieList.length).toFixed(2)) 
+    } 
 // Iteration 4: Drama movies - Get the average of Drama Movies
 
 
@@ -47,26 +51,36 @@ function dramaMoviesRate(listMovies){
     let dramaMovies = listMovies.filter(function (currentElement) {
       return currentElement.genre.includes("Drama");
     });
-    let draRates = dramaMovies.map(x => (x.rate));
-       
-    let rateSum = draRates.reduce(function(acc, value) {
-        return acc + value
-      }, 0); 
-      return rateSum / draRates.length
-   }
-// Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-    function orderByYear(moviesList){
-        let years =  moviesList.map(x => (x.year));
-         
-        return years 
+    if (dramaMovies.length == 0){
+        return 0
     }
+    let draRates = dramaMovies.map(x => (x.rate));
+           
+      return (draRates.reduce(function(acc, value) {
+        return acc + value
+      }, 0) / draRates.length)
+   }
+
+    
+// Iteration 5: Ordering by year - Order by year, ascending (in growing order)
+   
+
+function orderByYear(moviesList){
+                
+    return  moviesList.sort(function (a, b){
+      return a.year - b.year
+    }); 
+}
+
+
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 function orderAlphabetically(moviesList){
     let firstMovies = movies.slice(0,20)
-    let sortedTwenty = firstMovies.sort(function(a,b) {
+    
+    return firstMovies.sort(function(a,b) {
       return a.title - b.title;
     });
-    return sortedTwenty
+     
   }  
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 
